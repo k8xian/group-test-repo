@@ -1,0 +1,37 @@
+.card-row {
+    margin-top: 33%;
+}
+body {
+    background-color: #232F34;
+}
+
+.card-panel {
+    background-color: #344955;
+}
+
+/*need to figure out how to apply the following color to the dropdown options before selecting one */
+input, .orange, option{
+    color: #F9AA33;
+}
+
+.btn {
+    background-color: #F9AA33;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #F9AA33;
+}
+
+/* .btn:active {
+    background-color: #F9AA33;
+}
+
+Can't seem to change the color of the button once it is clicked. But that should be okay since the user will be directed from page when clicked.
+
+.btn:target {
+    background-color: #F9AA33; 
+} */
+
+
+
