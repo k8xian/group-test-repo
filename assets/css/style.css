@@ -23,6 +23,10 @@ input, .orange, option{
     color: #F9AA33;
 }
 
+.caption {
+    color: #F9AA33;
+}
+
 /* .btn:active {
     background-color: #F9AA33;
 }
