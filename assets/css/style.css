@@ -1,30 +1,128 @@
+:root {
+/* to use these colors: var(--highlight-color);  */
+
+/*------- colors -------*/
+
+    --orange: #ffb300;
+    --bright-blue: #18ffff;
+    --white: #fff;
+    --dark-gray: #020514;
+    --light-gray: #01040d;
+    --black: #01040d;
+
+    --gradient-down: linear-gradient(var(--dark-gray), var(--light-gray)) ;
+
+/*------- uses -------*/
+
+    --highlight-color: var(--orange);
+    --info-color:var(--bright-blue);
+    --main-color: var(--white);
+    --dark-bg-color: var(--dark-gray);
+    --light-bg-color: var(--light-gray);
+    --darkest-color: var(--black);
+
+/*------- fonts -------*/
+    --font-family-body: 'Montserrat:400', sans-serif;
+    --font-family-header: 'Montserrat:700', sans-serif;
+
+/*------- borders -------*/
+    --white-border: 1px solid var(--main-color);
+    --color-border: 1px solid var(--orange);
+    
+}
+
+/*------- add classes here to take on certain characteristics -------*/
+/*-- callout treatment ---*/
+input {
+font-weight: 200;
+letter-spacing: 4px;
+}
+
+/*-- header treatment ---*/
+strong, button, .btn {
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+/*-- main text treatment ---*/
+body {
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+
+/*------- end of global styles -------*/
+
 .card-row {
     margin-top: 33%;
 }
 body {
-    background-color: #232F34;
+    background:  var(--gradient-down);
+    font-family: var(--font-family-body);
+    color: var(--main-color);
+    font-weight: 200;
+    letter-spacing: 4px;
 }
 
+.material-icons {
+    color: var(--highlight-color);
+}
+
+
+
 .card-panel {
-    background-color: #344955;
+    background-color: var(--light-bg-color);
 }
 
 /*need to figure out how to apply the following color to the dropdown options before selecting one */
 input, .orange, option{
-    color: #F9AA33;
+    color: var(--highlight-color);
 }
 
 .btn {
-    background-color: #F9AA33;
+    background-color: var(--light-gray);
+    color: var(--highlight-color);
 }
 
 .btn:hover {
-    background-color: white;
-    color: #F9AA33;
+    background-color: var(--dark-bg-color);
 }
 
 .caption {
-    color: #F9AA33;
+    color: var(--highlight-color);
+}
+
+label {
+    font-family: var(--font-family-body);
+    color: var(--main-color);
+}
+
+input, input.select-dropdown{
+    border-bottom: var(--white-border) !important;
+    text-align: center;
+    color: var(--main-color);
+}
+
+.dropdown-content {
+    background-color: var(--darkest-color);
+}
+
+.dropdown-content li>a, .dropdown-content li>span {
+    color: var(--main-color);
+    text-align: center;
+    opacity: 1;
+}
+
+button, .btn, input[type=submit]{
+    border: 1px solid;
+}
+
+/* fixing the input spin */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 /* .btn:active {
