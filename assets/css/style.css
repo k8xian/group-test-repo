@@ -97,6 +97,11 @@ label {
     color: var(--main-color);
 }
 
+.label-align {
+    margin: auto;
+    text-align: center;
+}
+
 input, input.select-dropdown{
     border-bottom: var(--white-border) !important;
     text-align: center;
