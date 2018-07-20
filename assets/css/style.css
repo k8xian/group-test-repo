@@ -4,17 +4,19 @@
 /*------- colors -------*/
 
     --orange: #ffb300;
+    --light-orange: #ffd740;
     --bright-blue: #18ffff;
     --white: #fff;
-    --dark-gray: #020514;
-    --light-gray: #01040d;
+    --dark-gray: #01040d;
+    --light-gray: #00162f;
     --black: #01040d;
 
-    --gradient-down: linear-gradient(var(--dark-gray), var(--light-gray)) ;
+    --gradient-down: linear-gradient(180deg, var(--dark-gray), var(--light-gray)) ;
 
 /*------- uses -------*/
 
     --highlight-color: var(--orange);
+    --highlight-color-light: var(--light-orange);
     --info-color:var(--bright-blue);
     --main-color: var(--white);
     --dark-bg-color: var(--dark-gray);
@@ -52,9 +54,41 @@ body {
 
 
 /*------- end of global styles -------*/
+h1 {
+    float: left;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--highlight-color);
+    font-size: .8em;
+    margin-bottom: 16px;
+}
+
+h2 {
+    text-align: right;
+}
+
+.twitter-preview {
+    text-align: left;
+    clear: both;
+    margin-left: 3em;
+    line-height: 1em;
+    font-variant-ligatures: none;
+    letter-spacing: 2px;
+    width: 70%;
+}
+
+
+.info-block {
+    overflow: scroll;
+    height: 42vh;
+}
 
 .card-row {
     margin-top: 33%;
+}
+
+html {
+    height: 100%;
 }
 body {
     background:  var(--gradient-down);
@@ -62,12 +96,35 @@ body {
     color: var(--main-color);
     font-weight: 200;
     letter-spacing: 4px;
+
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.logo-header {
+    margin-top: 20px;
 }
 
 .material-icons {
     color: var(--highlight-color);
 }
 
+#sortType {
+    float: right;
+    margin-right: 6px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .4em;
+    margin-top: 10px;
+}
+
+#map {
+    width: 100%;
+    height: 40vh;
+  }
 
 
 .card-panel {
@@ -85,7 +142,8 @@ input, .orange, option{
 }
 
 .btn:hover {
-    background-color: var(--dark-bg-color);
+    background-color: var(--light-gray);
+    color: var(--highlight-color-light);
 }
 
 .caption {
@@ -120,7 +178,10 @@ input, input.select-dropdown{
 
 button, .btn, input[type=submit]{
     border: 1px solid;
+    margin-top: 20px;
 }
+
+
 
 /* fixing the input spin */
 input::-webkit-outer-spin-button,
