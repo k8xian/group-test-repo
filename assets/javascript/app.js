@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
 
-var apiKey = "AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE";
+
 
 //map styling
 function initMap() {
