@@ -50,6 +50,7 @@ $(document).ready(function () {
   })
 
 
+
   //map styling
   function initMap() {
     // Styles a map in night mode.
@@ -140,25 +141,7 @@ $(document).ready(function () {
       ]
     });
   };
+  initMap();
 
-
-//beginning of the map API business
-var apiKey = "AIzaSyBLYh-dwOzaEbsAMeBCP2TQtvvFqFioKSg";
-var query = "happyhour";
-
-  var queryURL = "https://www.googleapis.com/customsearch/v1?key=" 
-                + apiKey 
-                + "&cx=017576662512468239146:omuauf_lfve&"
-                + "q="
-                + query;
-  
-console.log(queryURL);
-
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function(response) {
-    console.log(response);
-  });
 
 });
