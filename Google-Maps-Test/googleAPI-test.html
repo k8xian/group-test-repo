@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        /* Set the size of the div element that contains the map */
+
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Google Maps</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <script>
+        
+        
+//var apiKey = "AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE";
+//            
+//var zipInput;
+//
+//    
+//    $.ajax({
+//      url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query=60714&key=" + apiKey
+//      method: "GET"
+//    }).then(function(response) {
+//      console.log(response);
+//    });
+
+        var map, infoWindow;
+        // Initialize and add the map
+        function initMap() {
+
+            infoWindow = new google.maps.InfoWindow;
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                // Centers map around these coordinates
+                center: {
+                    lat: '',
+                    lng: ''
+                },
+                zoom: 10
+            })
+
+            // HTML5 geolocation. Finds users exact location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Location found.');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // If Browser doesn't support Geolocation, this will allow an error window to prompt
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+            //Link to custom icon (has to be a url)//
+            var image = {
+                url: 'https://cdn4.iconfinder.com/data/icons/craft-beer-in-colors/64/beer-glass-drink-alcohol-craft-32.png'
+            };
+
+
+
+            //Array of objects w/ location and various info to be pushed into with Twitter response // this array contains some examples
+            var markers = [{
+                    coords: {
+                        lat: 42.0564,
+                        lng: -87.6752
+                    },
+                    iconImage: 'https://cdn4.iconfinder.com/data/icons/craft-beer-in-colors/64/beer-glass-drink-alcohol-craft-32.png',
+                    content: '<h1>Northwestern</h1>'
+                },
+                {
+                    coords: {
+                        lat: 41.9690,
+                        lng: -87.7197
+                    },
+                    iconImage: 'https://cdn1.iconfinder.com/data/icons/smallicons-food/32/hamburger-32.png',
+                    content: '<h1>Albany Park</h1>'
+                },
+                {
+                    coords: {
+                        lat: 41.9231,
+                        lng: -87.7197
+                    },
+                    iconImage: 'https://cdn2.iconfinder.com/data/icons/love-and-wedding-10/68/party_drink_beer_soda_water_juice_cheers_-32.png',
+                    content: '<h1>Logan Square</h1>'
+                },
+            ];
+
+            //loops through markers array
+            for (var i = 0; i < markers.length; i++) {
+                addMarker(markers[i]);
+            }
+
+            function addMarker(props) {
+                // Adds a marker
+                var marker = new google.maps.Marker({
+
+                    position: props.coords,
+                    map: map,
+                });
+                //checks for custom icon
+                if (props.iconImage) {
+                    //set icon image
+                    marker.setIcon(props.iconImage)
+                }
+
+                //checks content of info window
+                if (props.content) {
+                    var infoWindow = new google.maps.InfoWindow({
+                        //info window text
+                        content: props.content
+                    })
+                    //click on marker for infowindow to display
+                    marker.addListener('click', function() {
+                        infoWindow.open(map, marker);
+                    })
+                }
+            }
+
+        }
+        //error prompt
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+
+        }
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE	&callback=initMap">
+    </script>
+</body>
+
+</html>
