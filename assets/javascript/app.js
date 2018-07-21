@@ -5,15 +5,17 @@ $(document).ready(function () {
   $('select').formSelect();
 
   var zip;
-
   var radius;
 
-  //selecting zipcode & radius inputs
-  $(document).on('input', '#zipcode', function() {
+  var filter;
+  var filters = [];
+
+  //selects zipcode & radius inputs
+  $(document).on('input', '#zipcode', function () {
     zip = $('#zipcode').val().trim()
   });
 
-  //Saving zipcode & radius values as local storage
+  //saves zipcode & radius values as local storage
   $(document).on('click', '.submit-btn', function () {
     radius = $('.select-radius :selected').val()
     localStorage.setItem('zipcode', zip);
@@ -22,6 +24,30 @@ $(document).ready(function () {
     console.log('Radius: ' + radius);
   });
 
+  //saves filter input when typed
+  $(document).on('input', '#filter-input', function () {
+    filter = $('#filter-input').val().trim();
+  });
+
+  //pushes filter variables into an array that is stored locally and creates new buttons based on custom filters
+  $(document).on('click', '.filter-submit', function () {
+    var div = $('<div>').addClass('tag-button waves-effect');
+    var lowerCase = filter.toLowerCase();
+    div.attr('data-tag', lowerCase);
+    div.text(filter);
+    $('#tag-buttons').append(div);
+
+    filters.push(filter);
+    localStorage.setItem('filters', filters);
+  });
+
+  //event listener when a button is selected.
+  $(document).on('click', '#price-buttons div', function() {
+    console.log($(this).attr('data-price'));
+  });
+  $(document).on('click', '#tag-buttons div', function() {
+    console.log($(this).attr('data-tag'));
+  })
 
 
   //map styling
