@@ -169,7 +169,7 @@ body {
     background-color: var(--light-bg-color);
 }
 
-/*need to figure out how to apply the following color to the dropdown options before selecting one */
+
 input, .orange, option{
     color: var(--highlight-color);
 }
@@ -220,6 +220,10 @@ button, .btn, input[type=submit]{
     margin-top: 20px;
 }
 
+a {
+    text-decoration: none;
+}
+
 
 
 /* fixing the input spin */
@@ -230,15 +234,6 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-/* .btn:active {
-    background-color: #F9AA33;
-}
-
-Can't seem to change the color of the button once it is clicked. But that should be okay since the user will be directed from page when clicked.
-
-.btn:target {
-    background-color: #F9AA33; 
-} */
 
 
 

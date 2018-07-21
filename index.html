@@ -31,18 +31,17 @@
             <div class="col s12">
                 <form class="col s12">
                     <div class="row">
-                                <i class="material-icons center col s4 offset-s4">pin_drop</i>
+                        <i class="material-icons center col s4 offset-s4">pin_drop</i>
                     </div>
                     <div class="row">
-                            
-                        <h3 class='col s12 valign center caption'><strong>GET HAPPY</strong> (HOUR)</h3>
+                        <h3 class='col s12 valign center caption'>GET HAPPY (HOUR)</h3>
                     </div>
 
                     <div class="row">
-                        <div class="input-field col s12 m8">
-                            <!--the below <i> elements toggle icons on the input line-->
-                            <!-- <i class="material-icons prefix">my_location</i> -->
-                            <input id="zipcode" type="number" class="validate">
+                        <!--added the offset-m2 to align both inputs-->
+                        <div class="input-field col s12 m8 offset-m2">
+                            <input id="zipcode" type="number" class="validate" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                maxlength="5">
                             <div class="row label-align">
                                 <label class='valign center' for="timer">zip</label>
                             </div>
@@ -50,10 +49,10 @@
                         </div>
                     </div>
 
-                    <div class="row info-block">
-                        <div class="input-field col s12 m8">
-                            <!-- <i class="material-icons prefix">explore</i> -->
-                            <select class='orange'>
+                    <!--Removed class='info-block' from the below row element-->
+                    <div class="row">
+                        <div class="input-field col s12 m8 offset-m2">
+                            <select class='orange select-radius'>
                                 <option value="" disabled selected></option>
                                 <option value="1">1 miles</option>
                                 <option value="2">2 miles</option>
@@ -66,7 +65,9 @@
                             </div>
                             <span class="helper-text" data-error="wrong" data-success="right"></span>
                             <div class="row">
-                                <button class="btn waves-effect col s4 offset-s4" type='submit' name='action'>GO</button>
+                                <button class="btn waves-effect col s4 offset-s4 submit-btn" type='submit' name='action'>
+                                    <a href='#'>GO</a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -95,7 +96,7 @@
     <!-- Moment.js -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <!--jquery-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
         crossorigin="anonymous"></script>
     <!--Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
