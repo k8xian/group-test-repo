@@ -48,26 +48,26 @@
                                 <div class="section">
                                     <h1>Filters</h1>
                                         <h3>Sort By Price</h3>
-                                            <div id="price-buttons">
-                                                <div class="price-button waves-effect">$</div>
-                                                <div class="price-button waves-effect">$$</div>
-                                                <div class="price-button waves-effect">$$$</div>
-                                                <div class="price-button waves-effect">$$$$</div>
+                                            <div id="price-buttons" class='col'>
+                                                <div class="price-button waves-effect" data-price='$'>$</div>
+                                                <div class="price-button waves-effect" data-price='$$'>$$</div>
+                                                <div class="price-button waves-effect" data-price='$$$'>$$$</div>
+                                                <div class="price-button waves-effect" data-price='$$$$'>$$$$</div>
                                             </div>
                                         <h3>Sort By Tags</h3>
-                                            <div id="tag-buttons">
-                                                <div class="tag-button waves-effect">Craft Beer</div>
-                                                <div class="tag-button waves-effect">Wine</div>
-                                                <div class="tag-button waves-effect">Food</div>
-                                                <div class="tag-button waves-effect">Cocktails</div>
+                                            <div id="tag-buttons" class='col'>
+                                                <div class="tag-button waves-effect" data-tag='craft beer'>Craft Beer</div>
+                                                <div class="tag-button waves-effect" data-tag='wine'>Wine</div>
+                                                <div class="tag-button waves-effect" data-tag='food'>Food</div>
+                                                <div class="tag-button waves-effect" data-tag='cocktails'>Cocktails</div>
                                             </div>
                                             <form>
-                                                <div class='row label-align'>
+                                                <div class='row label-align col s8 offset-s2'>
                                                     <input id="filter-input" type="text" class="">
                                                     <label for="filter-input" class="valign center">add filter</label>
                                                 </div>
                                                 <div class="row">
-                                                    <button class="btn waves-effect col s4 offset-s4" type='submit' name='action'>submit</button>
+                                                    <button class="btn waves-effect col s4 offset-s4 filter-submit" type='button' name='action'>submit</button>
                                                 </div>
                                             </form>
                                 <!--End of block to be removed-->
