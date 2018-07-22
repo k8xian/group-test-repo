@@ -51,11 +51,42 @@ $(document).ready(function () {
 
 
 
+
+
+
+
+    
+    ///map stuff
+    var map, infoWindow;
   //map styling
   function initMap() {
+
+        //create a variable for location
+        var myLatLng = {lat: 42.0564, lng: -87.6752};
+        var bounds = new google.maps.LatLngBounds();
+      
+        //push place data to this array
+        // possibly use this API to find coordinates https://www.gps-coordinates.net/
+    
+    
+        //variable for concatenated place names
+        var placeName = "";
+    
+        //https://maps.googleapis.com/maps/api/place/textsearch/json?query=hopleaf&key=AIzaSyBbm7r_pRBvTL_02fAcL3_eWtNkpxZ5tIY
+    
+        var placeNameQueryURLForMarers = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
+                                          + placeName +
+                                          "&key=AIzaSyBbm7r_pRBvTL_02fAcL3_eWtNkpxZ5tIY";  
+
+    infoWindow = new google.maps.InfoWindow;
+
+
+
+ 
+
     // Styles a map in night mode.
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: { lat: 41.8718, lng: -87.6298 },
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng,
       zoom: 12,
       mapTypeControl: false,
       fullscreenControl: false,
@@ -140,6 +171,101 @@ $(document).ready(function () {
         }
       ]
     });
+
+    // HTML5 geolocation. Finds users exact location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+          };
+
+          marker.setIcon(image.url)
+
+          // infoWindow.setPosition(pos);
+          // infoWindow.setContent('Location found.');
+          // infoWindow.open(map);
+          map.setCenter(pos);
+      }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+      });
+  } else {
+      // If Browser doesn't support Geolocation, this will allow an error window to prompt
+      handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+  //Link to custom icon (has to be a url)//
+  var image = {
+      url: 'assets/images/map-icon.png'
+  };
+
+
+    //create variables to push to this array from incoming data
+   ///markers object
+   var markers = [{
+    coords: {
+        lat: 42.0564,
+        lng: -87.6752
+    },
+    iconImage: 'assets/images/map-icon.png',
+    content: '<h1>Northwestern</h1>'
+},
+{
+    coords: {
+        lat: 41.9690,
+        lng: -87.7197
+    },
+    iconImage: 'assets/images/map-icon.png',
+    content: '<h1>Albany Park</h1>'
+},
+{
+    coords: {
+        lat: 41.9231,
+        lng: -87.7197
+    },
+    iconImage: 'assets/images/map-icon.png',
+    content: '<h1>Logan Square</h1>'
+},
+];
+
+
+  //for loop for generating markers array into markers on the map- this isn't working yet.
+//loops through markers array
+    for (var i = 0; i < markers.length; i++) {
+      addMarker(markers[i]);
+    }
+
+    function addMarker(props) {
+      // Adds a marker
+      var marker = new google.maps.Marker({
+
+          position: props.coords,
+          map: map,
+      });
+      //checks for custom icon
+      if (props.iconImage) {
+          //set icon image
+          marker.setIcon(props.iconImage)
+      }
+
+      //checks content of info window
+      if (props.content) {
+          var infoWindow = new google.maps.InfoWindow({
+              //info window text
+              content: props.content
+          })
+          //click on marker for infowindow to display
+          marker.addListener('click', function() {
+              infoWindow.open(map, marker);
+          })
+      }
+    }
+
+    // var marker = new google.maps.Marker({
+    //   position: myLatLng,
+    //   map: map,
+    //   title: 'Hello World!'
+    // });
   };
   initMap();
 
