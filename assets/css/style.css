@@ -247,3 +247,6 @@ input::-webkit-inner-spin-button {
 
 
 
+#user-input, #main-display {
+    display: block;
+}
