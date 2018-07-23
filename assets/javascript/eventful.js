@@ -33,6 +33,7 @@ var tempRadius = "15";
     }).then(function (response) {
         for (var i = 0; i < 200; i++) {
 
+
             console.log(response);
             console.log("the result length is = " + response.events.length);
 
