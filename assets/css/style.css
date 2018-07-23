@@ -64,6 +64,12 @@ h1 {
     font-weight: 700;
     color: var(--highlight-color);
     font-size: .8em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 70%;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 h2 {
@@ -93,10 +99,13 @@ h3 {
     text-align: left;
     clear: both;
     margin-left: var(--left-margin);
-    line-height: 1em;
+    line-height: 1.4em;
     font-variant-ligatures: none;
     letter-spacing: 2px;
     width: 70%;
+    font-size: .9em;
+    overflow: auto;
+    max-height: 76px;
 }
 
 #price-buttons, #tag-buttons { 
@@ -127,7 +136,7 @@ h3 {
 
 .info-block {
     overflow: scroll;
-    height: 42vh;
+    height: 40vh;
 }
 
 .card-row {
@@ -250,3 +259,13 @@ input::-webkit-inner-spin-button {
 #user-input, #main-display {
     display: block;
 }
+
+.eventful-small {     
+    position: relative    !important;
+    width: 100px          !important;
+    font-size: 11px       !important;
+    line-height: 11px     !important;
+    float: right;
+    margin-bottom: 10px;
+    margin-top: -38px;
+  }
