@@ -18,6 +18,7 @@ $(document).ready(function () {
 
   //saves zipcode & radius values as local storage
   $(document).on('click', '.submit-btn', function () {
+    event.preventDefault();
     zip = $('#zipcode').val().trim()
     radius = $('.select-radius :selected').val()
     localStorage.setItem('zipcode', zip);
