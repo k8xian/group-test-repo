@@ -23,7 +23,7 @@ var tempRadius = "15";
                   + "&within&within="
                   + tempRadius
                   + "&units=miles";
-  console.log(eventBriteURL);
+  console.log(eventfulURL);
 
 
     $.ajax({
