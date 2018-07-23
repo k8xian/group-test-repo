@@ -53,6 +53,7 @@ var tempRadius = "15";
             var businessName = $("<h1>");
             var distance = $("<h2>");
             var description = $("<p class='twitter-preview'>");
+            var linkToAddress = $("<a class='map-link__temp'>");
             
             if(eventVenue !== null) {
                 businessName.html(eventVenue);
@@ -63,14 +64,18 @@ var tempRadius = "15";
             if(eventDescription !== null) {
                 description.html(eventDescription);
             } else if (eventURL !== null) {
-                description.html("<a href='" + eventURL + "' target='_blank'>link to event</a>");
+                description.html("<a href='" + eventURL + "' target='_blank'>no description available: link to event</a>");
             } else {
                 description.text("Oops... no info available");
             }
 
             distance.text("0.4 mi");
 
-            sectionBlock.append(businessName, distance, description);
+            if(eventAddress !== null) {
+                linkToAddress.attr("href", "http://maps.google.com/?q=" + eventAddress).attr("target", "_blank").text("Link to Map");
+            }
+
+            sectionBlock.append(businessName, distance, description, linkToAddress);
             $(".info-block").append(sectionBlock);
             $(".info-block").append("<div class='divider'>");
 

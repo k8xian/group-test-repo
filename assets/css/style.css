@@ -95,6 +95,19 @@ h3 {
     width: 32px;
 }
 
+.divider {
+    clear: both;
+}
+
+.map-link__temp {
+    float: left;
+    margin: 10px 0;
+    color: var(--bright-blue);
+    clear: both;
+    font-weight: 700;
+    font-size: .7em;
+}
+
 .twitter-preview {
     text-align: left;
     clear: both;
