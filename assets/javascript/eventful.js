@@ -19,10 +19,11 @@ $(document).ready(function () {
         + eventfulKey
         + "&location="
         + localZip
-        + "&ga_search=happy+hour&ga_type=events"
+        + "&ga_search=happy%20hour&ga_type=events"
         + "&within&within="
         + localRadius
-        + "&units=miles";
+        + "&units=miles"
+//        + "&date=Today";
     console.log(eventfulURL);
 
 
@@ -31,11 +32,12 @@ $(document).ready(function () {
         dataType: 'jsonp',
         method: "GET"
     }).then(function (response) {
-        for (var i = 0; i < 200; i++) {
 
+        var resultLength = parseInt(response.total_items);
+        console.log(response);
+        console.log("the result length is = " + resultLength);
 
-            console.log(response);
-            console.log("the result length is = " + response.events.length);
+        for (var i = 0; i < resultLength; i++) {
 
             console.log(response.events.event[i].venue_name);
             console.log(response.events.event[i].venue_address);
