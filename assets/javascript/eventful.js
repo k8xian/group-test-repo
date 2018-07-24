@@ -23,10 +23,19 @@ $(document).ready(function () {
         + eventfulKey +
         "&q=happy%20hour&ga_search=happy+hour&ga_type=events&t=Today"
         + "&location="
+<<<<<<< HEAD
         + tempArea
         + "&within&within="
         + tempRadius
         + "&units=miles";
+=======
+        + localZip
+        + "&ga_search=happy%20hour&ga_type=events"
+        + "&within&within="
+        + localRadius
+        + "&units=miles"
+//        + "&date=Today";
+>>>>>>> 4389abcf4613ef19593e2dc1a10665c2bd5d1be4
     console.log(eventfulURL);
 
 
@@ -35,11 +44,12 @@ $(document).ready(function () {
         dataType: 'jsonp',
         method: "GET"
     }).then(function (response) {
-        for (var i = 0; i < 200; i++) {
 
+        var resultLength = parseInt(response.total_items);
+        console.log(response);
+        console.log("the result length is = " + resultLength);
 
-            console.log(response);
-            console.log("the result length is = " + response.events.length);
+        for (var i = 0; i < resultLength; i++) {
 
             console.log(response.events.event[i].venue_name);
             console.log(response.events.event[i].venue_address);
