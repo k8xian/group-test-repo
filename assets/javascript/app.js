@@ -86,7 +86,7 @@ $(document).ready(function () {
           map.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
             map: map,
-            position: zip.results[0].geometry.location
+            position: results[0].geometry.location
           });
         } else {
           alert("Geocode was not successful for the following reason: " + status);
@@ -212,6 +212,27 @@ $(document).ready(function () {
     var image = {
       url: 'assets/images/map-icon.png'
     };
+
+
+    $.getScript("eventful.js")
+      .done(function (script, textStatus) {
+        console.log(textStatus);
+      })
+      .fail(function (jqxhr, settings, exception) {
+        $("div.log").text("Triggered ajaxError handler.");
+      });
+    
+      for (var i = 0; i < reponse.length; i++) {
+        var littleObject = {
+          coords: {
+            lat: latArray[i],
+            lng: lonArray[i]
+        },
+          iconImage: 'assets/images/map-icon.png',
+          content: '<h1>Northwestern</h1>'
+      }
+        markers.push(littleObject);
+      };
 
 
     //create variables to push to this array from incoming data

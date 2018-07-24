@@ -9,19 +9,23 @@ $(document).ready(function () {
     console.log("The locally stored zip is: " + localRadius);
 
     // temporary data since eventful doesn't populate a ton of results based on zip and radius
-    // var tempArea = "chicago";
-    // var tempRadius = "15";
+    var tempArea = "chicago";
+    var tempRadius = "15";
+
+    //arrays to hold lat/lon
+    var latArray = [];
+    var lonArray = [];
 
 
     //event
     var eventfulKey = "TQGmk2sjCkvfxS3r";
     var eventfulURL = "https://api.eventful.com/json/events/search?app_key="
-        + eventfulKey
+        + eventfulKey +
+        "&q=happy%20hour&ga_search=happy+hour&ga_type=events&t=Today"
         + "&location="
-        + localZip
-        + "&ga_search=happy+hour&ga_type=events"
+        + tempArea
         + "&within&within="
-        + localRadius
+        + tempRadius
         + "&units=miles";
     console.log(eventfulURL);
 
@@ -49,6 +53,10 @@ $(document).ready(function () {
             var eventLat = response.events.event[i].latitude;
             var eventLon = response.events.event[i].longitude;
             var eventURL = response.events.event[i].url;
+
+            //pushes current lat/lon into an array
+            latArray.push(eventLat);
+            lonArray.push(eventLon);
 
             var sectionBlock = $("<div class='section'>");
             var businessName = $("<h1>");
@@ -79,8 +87,7 @@ $(document).ready(function () {
             sectionBlock.append(businessName, distance, description, linkToAddress);
             $(".info-block").append(sectionBlock);
             $(".info-block").append("<div class='divider'>");
-
-
+            
         }
     });
 
