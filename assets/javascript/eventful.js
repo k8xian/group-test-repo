@@ -23,8 +23,7 @@ $(document).ready(function () {
         + "&within&within="
         + localRadius
         + "&units=miles"
-        + "&c=singles_social"
-        + "&date=Today";
+//        + "&date=Today";
     console.log(eventfulURL);
 
 
