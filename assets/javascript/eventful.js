@@ -9,8 +9,8 @@ $(document).ready(function () {
     console.log("The locally stored zip is: " + localRadius);
 
     // temporary data since eventful doesn't populate a ton of results based on zip and radius
-    // var tempArea = "chicago";
-    // var tempRadius = "15";
+    var tempArea = "chicago";
+    var tempRadius = "15";
 
 
     //event
@@ -22,7 +22,8 @@ $(document).ready(function () {
         + "&ga_search=happy+hour&ga_type=events"
         + "&within&within="
         + localRadius
-        + "&units=miles";
+        + "&units=miles"
+        + "&date=today";
     console.log(eventfulURL);
 
 
@@ -79,6 +80,21 @@ $(document).ready(function () {
             sectionBlock.append(businessName, distance, description, linkToAddress);
             $(".info-block").append(sectionBlock);
             $(".info-block").append("<div class='divider'>");
+
+            // appending to makers
+
+            var newObject = {
+                coord: {
+                    lat: eventLat,
+                    lng: eventLon,
+                },
+                iconImage: 'assets/images/map-icon.png',
+                content: businessName,
+
+            };
+
+            markers.push(newObject);
+            console.table(markers);
 
 
         }
