@@ -47,30 +47,19 @@ $(document).ready(function () {
     localStorage.setItem('filters', filters);
   });
 
-  //event listener when a button is selected.
-  $(document).on('click', '#price-buttons div', function () {
-    console.log($(this).attr('data-price'));
-  });
-  $(document).on('click', '#tag-buttons div', function () {
-    console.log($(this).attr('data-tag'));
-  })
-
-
 
   //push place data to this array
   // possibly use this API to find coordinates https://www.gps-coordinates.net/
 
 
-  //variable for concatenated place names
-  var placeName = "";
+  // //variable for concatenated place names
+  // var placeName = "";
 
-  //https://maps.googleapis.com/maps/api/place/textsearch/json?query=hopleaf&key=AIzaSyBbm7r_pRBvTL_02fAcL3_eWtNkpxZ5tIY
+  // //https://maps.googleapis.com/maps/api/place/textsearch/json?query=hopleaf&key=AIzaSyBbm7r_pRBvTL_02fAcL3_eWtNkpxZ5tIY
 
-  var placeNameQueryURLForMarers = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
-    + placeName +
-    "&key=AIzaSyBbm7r_pRBvTL_02fAcL3_eWtNkpxZ5tIY";
-
-
+  // var placeNameQueryURLForMarers = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
+  //                                   + placeName +
+  //                                       "&key=AIzaSyBbm7r_pRBvTL_02fAcL3_eWtNkpxZ5tIY";  
 
 
   var geocoder; //To use later
@@ -97,7 +86,7 @@ $(document).ready(function () {
           map.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
             map: map,
-            position: results[0].geometry.location
+            position: zip.results[0].geometry.location
           });
         } else {
           alert("Geocode was not successful for the following reason: " + status);
@@ -295,5 +284,6 @@ $(document).ready(function () {
 
 
 
-});
 
+
+});

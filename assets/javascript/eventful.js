@@ -9,8 +9,8 @@ $(document).ready(function () {
     console.log("The locally stored zip is: " + localRadius);
 
     // temporary data since eventful doesn't populate a ton of results based on zip and radius
-    var tempArea = "chicago";
-    var tempRadius = "15";
+    // var tempArea = "chicago";
+    // var tempRadius = "15";
 
 
     //event
@@ -19,11 +19,12 @@ $(document).ready(function () {
         + eventfulKey
         + "&location="
         + localZip
-        + "&ga_search=happy+hour&ga_type=events"
+        + "&ga_search=happy%20hour&ga_type=events"
         + "&within&within="
         + localRadius
         + "&units=miles"
-        + "&date=today";
+        + "&c=singles_social"
+        + "&date=Today";
     console.log(eventfulURL);
 
 
@@ -32,11 +33,12 @@ $(document).ready(function () {
         dataType: 'jsonp',
         method: "GET"
     }).then(function (response) {
-        for (var i = 0; i < 200; i++) {
 
+        var resultLength = parseInt(response.total_items);
+        console.log(response);
+        console.log("the result length is = " + resultLength);
 
-            console.log(response);
-            console.log("the result length is = " + response.events.length);
+        for (var i = 0; i < resultLength; i++) {
 
             console.log(response.events.event[i].venue_name);
             console.log(response.events.event[i].venue_address);
@@ -80,21 +82,6 @@ $(document).ready(function () {
             sectionBlock.append(businessName, distance, description, linkToAddress);
             $(".info-block").append(sectionBlock);
             $(".info-block").append("<div class='divider'>");
-
-            // appending to makers
-
-            var newObject = {
-                coord: {
-                    lat: eventLat,
-                    lng: eventLon,
-                },
-                iconImage: 'assets/images/map-icon.png',
-                content: businessName,
-
-            };
-
-            markers.push(newObject);
-            console.table(markers);
 
 
         }

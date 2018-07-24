@@ -1,136 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Get Happy (Hour)</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Get Happy (Hour)</title>
 
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Materialize CSS-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-        <!--Firebase Link-->
-        <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-        <!--Reset CSS-->
-        <link rel='stylesheet' href='./assets/css/reset.css'>
-        <!--Style CSS-->
-        <link rel='stylesheet' href='./assets/css/style.css'>
-        <!--Fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Materialize CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <!--Firebase Link-->
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <!--Reset CSS-->
+    <link rel='stylesheet' href='./assets/css/reset.css'>
+    <!--Style CSS-->
+    <link rel='stylesheet' href='./assets/css/style.css'>
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    
+    <!--Fonts-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
-    </head>
+</head>
 
-    <body>
-        <div class="container">
-            <div id="user-input">
-                <div class="row card-row">
-                    <div class="col s12">
-                        <form class="col s12">
+<body>
+    <div class="container">
+        <div id="user-input">
+            <div class="row card-row">
+                <div class="col s12">
+                    <form class="col s12">
 
-                            <div class="row">
-                                <div class="center-img">
-                                    <img class="main__icon" src="assets/images/app-icon.png"/>
+                        <div class="row">
+                            <div class="center-img">
+                                <img class="main__icon" src="assets/images/app-icon.png" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h3 class='col s12 valign center caption'>GET HAPPY (HOUR)</h3>
+                        </div>
+
+                        <div class="row">
+                            <!--added the offset-m2 to align both inputs-->
+                            <div class="input-field col s12 m8 offset-m2">
+                                <input id="zipcode" type="number" class="validate" autocomplete='postal-code' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    maxlength="5">
+                                <div class="row label-align">
+                                    <label class='valign center' for="timer">zip</label>
+                                </div>
+                                <span class="helper-text" data-error="" data-success=""></span>
+                            </div>
+                        </div>
+
+
+                        <!--Removed class='info-block' from the below row element-->
+                        <div class="row">
+                            <div class="input-field col s12 m8 offset-m2">
+                                <select class='orange select-radius'>
+                                    <option value="" disabled selected></option>
+                                    <option value="1">1 miles</option>
+                                    <option value="2">2 miles</option>
+                                    <option value="3">3 miles</option>
+                                    <option value="4">4 miles</option>
+                                    <option value="5">5 miles</option>
+                                </select>
+                                <div class='row label-align'>
+                                    <label for="radius" class="valign center">radius</label>
+                                </div>
+                                <span class="helper-text" data-error="wrong" data-success="right"></span>
+                                <div class="row">
+                                    <button class="btn waves-effect col s4 offset-s4 submit-btn" type='submit' name='action'>
+                                        GO
+                                    </button>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <h3 class='col s12 valign center caption'>GET HAPPY (HOUR)</h3>
-                            </div>
-
-                            <div class="row">
-                                <!--added the offset-m2 to align both inputs-->
-                                <div class="input-field col s12 m8 offset-m2">
-                                    <input id="zipcode" type="number" class="validate"  autocomplete='postal-code' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5">
-                                    <div class="row label-align">
-                                        <label class='valign center' for="timer">zip</label>
-                                    </div>
-                                    <span class="helper-text" data-error="" data-success=""></span>
-                                </div>
-                            </div>
-
-
-                            <!--Removed class='info-block' from the below row element-->
-                            <div class="row">
-                                <div class="input-field col s12 m8 offset-m2">
-                                    <select class='orange select-radius'>
-                                        <option value="" disabled selected></option>
-                                        <option value="1">1 miles</option>
-                                        <option value="2">2 miles</option>
-                                        <option value="3">3 miles</option>
-                                        <option value="4">4 miles</option>
-                                        <option value="5">5 miles</option>
-                                    </select>
-                                    <div class='row label-align'>
-                                        <label for="radius" class="valign center">radius</label>
-                                    </div>
-                                    <span class="helper-text" data-error="wrong" data-success="right"></span>
-                                    <div class="row">
-                                        <button class="btn waves-effect col s4 offset-s4 submit-btn" type='submit' name='action'>
-                                            GO
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <div id="main-display">
-                <div class="row">
+        </div>
+        <div id="main-display">
+            <div class="row">
 
-                    <div class="col s12 label-align">
-                        <div class="row">
+                <div class="col s12 label-align">
+                    <div class="row">
 
-                            <h3 class='col s12 valign center caption logo-header'><strong>GET HAPPY</strong> (HOUR)</h3>
+                        <h3 class='col s12 valign center caption logo-header'>
+                            <strong>GET HAPPY</strong> (HOUR)</h3>
+                    </div>
+                    <div class="eventful-badge eventful-small">
+                        <img src="http://api.eventful.com/images/powered/eventful_58x20.gif" alt="Local Events, Concerts, Tickets">
+                        <p>
+                            <a href="http://eventful.com/">Events</a> by Eventful</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12 label-align">
+                            <!--Map-->
+                            <div id="map"></div>
+                            <div id="sortType">sorted by distance</div>
                         </div>
-                        <div class="eventful-badge eventful-small">
-                                <img src="http://api.eventful.com/images/powered/eventful_58x20.gif"
-                                    alt="Local Events, Concerts, Tickets">
-                                <p><a href="http://eventful.com/">Events</a> by Eventful</p>
-                            </div>
-
-                        <div class="row">
-                            <div class="col s12 label-align">
-                                <!--Map-->
-                                <div id="map"></div>
-                                <div id="sortType">sorted by distance</div>
-                            </div>  
-                        </div>
-                        <div class="row">
-                            <!--Scrolling businesses iFrame-->
-                            <div class="col s12 label-align info-block">
-                            <!--Remove all of these after jQuery creates these elements-->                   
-                                <!--End of block to be removed-->
-                            </div>
+                    </div>
+                    <div class="row">
+                        <!--Scrolling businesses iFrame-->
+                        <div class="col s12 label-align info-block">
+                            <!--Remove all of these after jQuery creates these elements-->
+                            <!--End of block to be removed-->
                         </div>
                     </div>
                 </div>
-
             </div>
 
         </div>
-        <!--End of Main Container-->
+
+    </div>
+    <!--End of Main Container-->
 
 
-        <!-- Moment.js -->
-        <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-        <!--jquery-->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
-            crossorigin="anonymous"></script>
-        <!---AJAX-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!--Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-        <!--Local Javascript Path-->
-        <script src='./assets/javascript/app.js'></script>
-        <script src='./assets/javascript/eventful.js'></script>
-        <!--Local Google Maps-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&callback=initMap"
-        async defer></script>
-    </body>
+    <!-- Moment.js -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+        crossorigin="anonymous"></script>
+    <!---AJAX-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <!--Local Javascript Path-->
+    <script src='./assets/javascript/app.js'></script>
+    <script src='./assets/javascript/eventful.js'></script>
+    <!-- <script src='./assets/javascript/twitter.js'></script> -->
+    <!--Local Google Maps-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&callback=initMap" async
+        defer></script>
+</body>
 
 
 </html>
