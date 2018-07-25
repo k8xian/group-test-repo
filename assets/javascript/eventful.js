@@ -1,8 +1,8 @@
 $(document).ready(function () {
     console.log("I'm Ready!")
+});
 
-
-    //variables called from local storage 
+//variables called from local storage 
 //     var localZip = localStorage.getItem("zipcode");
 //     console.log("The locally stored zip is: " + localZip);
 //     var localRadius = localStorage.getItem("radius");
@@ -83,7 +83,11 @@ $(document).ready(function () {
 //             $(".info-block").append("<div class='divider'>");
 
 
-//         }
-//     });
+// //         }
+// //     });
 
-});
+//     /********************************************/
+//     for (var i = 0; i < markers.length; i++) {
+//         addMarker(markers[i]);
+//     }
+//     /********************************************/
