@@ -174,7 +174,7 @@ $.ajax({
                 lat: latArray[i],
                 lon: lonArray[i],
             },
-            iconImag: 'assets/images/map-icon.png',
+            iconImage: 'assets/images/map-icon.png',
             content: eventVenue
         }
         markers.push(littleObject);
@@ -342,4 +342,30 @@ function initMap() {
         addMarker(markers[i]);
     }
     /********************************************/
+
+    function addMarker(props) {
+        // Adds a marker
+        var marker = new google.maps.Marker({
+    
+            position: props.coords,
+            map: map,
+        });
+        //checks for custom icon
+        if (props.iconImage) {
+            //set icon image
+            marker.setIcon(props.iconImage)
+        }
+    
+        //checks content of info window
+        if (props.content) {
+            var infoWindow = new google.maps.InfoWindow({
+                //info window text
+                content: props.content
+            })
+            //click on marker for infowindow to display
+            marker.addListener('click', function () {
+                infoWindow.open(map, marker);
+            })
+        }
+    }
 }
