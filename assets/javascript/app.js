@@ -6,6 +6,8 @@ $(document).ready(function () {
   
     var zip;
     var radius;
+    var localZip;
+    var localRadius;
   
     var filter;
     var filters = [];
@@ -29,6 +31,16 @@ $(document).ready(function () {
       radius = $('.select-radius :selected').val()
       localStorage.setItem('zipcode', zip);
       localStorage.setItem('radius', radius);
+
+      localZip = localStorage.getItem("zipcode");
+      console.log("The locally stored zip is: " + localZip);
+      localRadius = localStorage.getItem("radius");
+      console.log("The locally stored zip is: " + localRadius);
+
+      if (localZip !== null && localRadius !== null ){
+        eventfulSearch();
+      }
+      
       userInput.hide();
       mainDisplay.show();
       initMap();
@@ -59,9 +71,9 @@ $(document).ready(function () {
   
   
     /*************************************************************************************/
-    var localZip = localStorage.getItem("zipcode");
+    localZip = localStorage.getItem("zipcode");
     console.log("The locally stored zip is: " + localZip);
-    var localRadius = localStorage.getItem("radius");
+    localRadius = localStorage.getItem("radius");
     console.log("The locally stored zip is: " + localRadius);
   
     // temporary data since eventful doesn't populate a ton of results based on zip and radius
@@ -81,7 +93,15 @@ $(document).ready(function () {
       + "&units=miles"
     //        + "&date=Today";
     console.log(eventfulURL);
-  
+
+    //problem is ajax call is happening too soon
+    //wrap ajax call in a function
+
+    //if localstorage values == null, something = false
+    //if localstorage values == true, something true
+
+    //if something is true, call ajax function
+  function eventfulSearch() {
   
     $.ajax({
       url: eventfulURL,
@@ -155,7 +175,7 @@ $(document).ready(function () {
       }
     });
   
-  
+  };
   
   
   
