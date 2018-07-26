@@ -54,6 +54,8 @@ body {
     font-weight: 400;
     letter-spacing: 2px;
     -webkit-font-variant-ligatures: none;
+    /* overflow-x: hidden;  */
+    overflow-y: hidden; 
 }
 
 
@@ -282,3 +284,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 10px;
     margin-top: -38px;
   }
+
+  ::-webkit-scrollbar { 
+    display: none; 
+}
