@@ -11,8 +11,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Materialize CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-    <!--Firebase Link-->
-    <!--<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>-->
     <!--Reset CSS-->
     <link rel='stylesheet' href='./assets/css/reset.css'>
     <!--Style CSS-->
@@ -50,7 +48,7 @@
                                 <div class="row label-align">
                                     <label class='valign center' for="timer">zip</label>
                                 </div>
-                                <span class="helper-text" data-error="" data-success=""></span>
+                                <div id="input-error__message" class="helper-text">error: input a five-digit zip</div>
                             </div>
                         </div>
 
@@ -69,7 +67,6 @@
                                 <div class='row label-align'>
                                     <label for="radius" class="valign center">radius</label>
                                 </div>
-                                <span class="helper-text" data-error="wrong" data-success="right"></span>
                                 <div class="row">
                                     <button class="btn waves-effect col s4 offset-s4 submit-btn" type='submit' name='action'>
                                         GO
@@ -121,8 +118,6 @@
     <!--End of Main Container-->
 
 
-    <!-- Moment.js -->
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <!--jquery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
         crossorigin="anonymous"></script>
@@ -132,8 +127,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <!--Local Javascript Path-->
     <script src='./assets/javascript/app.js'></script>
-    <script src='./assets/javascript/eventful.js'></script>
-    <!-- <script src='./assets/javascript/twitter.js'></script> -->
     <!--Local Google Maps-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&callback=initMap" async
         defer></script>

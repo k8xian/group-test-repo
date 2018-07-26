@@ -19,15 +19,27 @@ $(document).ready(function () {
     var mainDisplay = $("#main-display");
 
     var mapDirections = $("#mapDirections")
+
+    var errorMsg = $("#input-error__message");
   
     userInput.show();
     mainDisplay.hide();
     mapDirections.hide();
+    errorMsg.hide();
   
     //saves zipcode & radius values as local storage
     $(document).on('click', '.submit-btn', function () {
       event.preventDefault();
       zip = $('#zipcode').val().trim()
+      console.log(zip);
+      console.log(zip.length);
+      
+
+      if (zip.length !== 5) {
+        console.log("bad input!");;
+        errorMsg.show();
+      } else {
+
       radius = $('.select-radius :selected').val()
       localStorage.setItem('zipcode', zip);
       localStorage.setItem('radius', radius);
@@ -36,16 +48,17 @@ $(document).ready(function () {
       console.log("The locally stored zip is: " + localZip);
       localRadius = localStorage.getItem("radius");
       console.log("The locally stored zip is: " + localRadius);
-
 //      if (localZip !== null && localRadius !== null ){
 //        eventfulSearch();
 //      }
-      
+    
       userInput.hide();
       mainDisplay.show();
       initMap();
       console.log('Zipcode: ' + zip)
       console.log('Radius: ' + radius);
+
+      }
     });
   
     //saves filter input when typed
@@ -203,30 +216,31 @@ $(document).ready(function () {
   
     //create variables to push to this array from incoming data
     ///markers object
-    var markers = [{
-      coords: {
-        lat: 42.0564,
-        lng: -87.6752
-      },
-      iconImage: 'assets/images/map-icon.png',
-      content: '<h1>Northwestern</h1>'
-    },
-    {
-      coords: {
-        lat: 41.9690,
-        lng: -87.7197
-      },
-      iconImage: 'assets/images/map-icon.png',
-      content: '<h1>Albany Park</h1>'
-    },
-    {
-      coords: {
-        lat: 41.9231,
-        lng: -87.7197
-      },
-      iconImage: 'assets/images/map-icon.png',
-      content: '<h1>Logan Square</h1>'
-    },
+    var markers = [
+    //   {
+    //   coords: {
+    //     lat: 42.0564,
+    //     lng: -87.6752
+    //   },
+    //   iconImage: 'assets/images/map-icon.png',
+    //   content: '<h1>Northwestern</h1>'
+    // },
+    // {
+    //   coords: {
+    //     lat: 41.9690,
+    //     lng: -87.7197
+    //   },
+    //   iconImage: 'assets/images/map-icon.png',
+    //   content: '<h1>Albany Park</h1>'
+    // },
+    // {
+    //   coords: {
+    //     lat: 41.9231,
+    //     lng: -87.7197
+    //   },
+    //   iconImage: 'assets/images/map-icon.png',
+    //   content: '<h1>Logan Square</h1>'
+    // },
     ];
   
     var geocoder; //To use later
@@ -351,29 +365,6 @@ $(document).ready(function () {
           }
         ]
       });
-  
-      //not sure if we actually want this to be a functinoality yet
-      //   // HTML5 geolocation. Finds users exact location
-      //   if (navigator.geolocation) {
-      //     navigator.geolocation.getCurrentPosition(function(position) {
-      //         var pos = {
-      //             lat: position.coords.latitude,
-      //             lng: position.coords.longitude
-      //         };
-  
-      //         marker.setIcon(image.url)
-  
-      //         // infoWindow.setPosition(pos);
-      //         // infoWindow.setContent('Location found.');
-      //         // infoWindow.open(map);
-      //         map.setCenter(pos);
-      //     }, function() {
-      //         handleLocationError(true, infoWindow, map.getCenter());
-      //     });
-      // } else {
-      //     // If Browser doesn't support Geolocation, this will allow an error window to prompt
-      //     handleLocationError(false, infoWindow, map.getCenter());
-      // }
   
       for (var i = 0; i < markers.length; i++) {
         addMarker(markers[i]);
