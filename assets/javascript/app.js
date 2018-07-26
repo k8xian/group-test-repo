@@ -37,9 +37,9 @@ $(document).ready(function () {
       localRadius = localStorage.getItem("radius");
       console.log("The locally stored zip is: " + localRadius);
 
-      if (localZip !== null && localRadius !== null ){
-        eventfulSearch();
-      }
+//      if (localZip !== null && localRadius !== null ){
+//        eventfulSearch();
+//      }
       
       userInput.hide();
       mainDisplay.show();
@@ -101,7 +101,7 @@ $(document).ready(function () {
     //if localstorage values == true, something true
 
     //if something is true, call ajax function
-  function eventfulSearch() {
+ // function eventfulSearch() {
   
     $.ajax({
       url: eventfulURL,
@@ -175,7 +175,7 @@ $(document).ready(function () {
       }
     });
   
-  };
+ // };
   
   
   
