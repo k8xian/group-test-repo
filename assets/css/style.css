@@ -225,6 +225,10 @@ input, .orange, option{
     color: var(--highlight-color-light);
 }
 
+.btn:focus {
+    background-color: #00bcd43d;
+}
+
 .caption {
     color: var(--highlight-color);
 }
@@ -295,4 +299,16 @@ input::-webkit-inner-spin-button {
 
   ::-webkit-scrollbar { 
     display: none; 
+}
+
+.input-field .helper-text {
+    position: relative;
+    min-height: 18px;
+    display: block;
+    font-size: 12px;
+    color: var(--bright-blue);
+    text-align: center;
+    margin: 10px auto -10px;
+    letter-spacing: 2px;
+    font-variant-ligatures: none;
 }
