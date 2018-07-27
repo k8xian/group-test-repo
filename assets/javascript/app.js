@@ -204,23 +204,17 @@ $(document).ready(function () {
 
 
 
+  ///logic for fixing local storage issue
+  //script callback function will be set to a thing containing the map init function
+  // there is a boolean that will begin on false upon page load, when the submit button is clicked, if there is a five digit zip entered, it will be changed to true
+  //there is also a boolean at the end of the ajax function that changes a second boolean to true?
+  //the callback function will say, if ___ is true && ___ is true, initMap. 
 
 
-  /**********************************************************************************************/
-  //push place data to this array
-  // possibly use this API to find coordinates https://www.gps-coordinates.net/
 
 
-  // //variable for concatenated place names
-  // var placeName = "";
 
-  // //https://maps.googleapis.com/maps/api/place/textsearch/json?query=hopleaf&key=AIzaSyBbm7r_pRBvTL_02fAcL3_eWtNkpxZ5tIY
 
-  // var placeNameQueryURLForMarers = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
-  //                                   + placeName +
-  //                                       "&key=AIzaSyBbm7r_pRBvTL_02fAcL3_eWtNkpxZ5tIY";  
-
-  //Link to custom icon (has to be a url)//
   var image = {
     url: 'assets/images/map-icon.png'
   };
