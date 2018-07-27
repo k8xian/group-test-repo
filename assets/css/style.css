@@ -111,6 +111,10 @@ h3 {
     cursor: pointer;
 }
 
+.map-link__temp.info {
+    color: #007bfb;
+}
+
 .twitter-preview {
     text-align: left;
     clear: both;
@@ -122,6 +126,10 @@ h3 {
     font-size: .9em;
     overflow: auto;
     max-height: 76px;
+}
+
+.twitter-preview.info {
+    width: 92%;
 }
 
 #price-buttons, #tag-buttons { 
@@ -269,6 +277,20 @@ a {
     text-decoration: none;
 }
 
+.bodyContent {
+    color: rgba(0,0,0,.54);
+    clear: both;
+    text-align: left;
+    letter-spacing: 1px;
+}
+
+h1.firstHeading {
+    color:var(--dark-gray);
+}
+
+.infoContent {
+    padding: 20px;
+}
 
 
 
