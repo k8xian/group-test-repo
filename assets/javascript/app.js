@@ -140,7 +140,7 @@ $(document).ready(function () {
       var eventLat = response.events.event[i].latitude;
       var eventLon = response.events.event[i].longitude;
       var eventURL = response.events.event[i].url;
-     // var image = response.events.event[i].image.small.url;
+      // var image = response.events.event[i].image.small.url;
 
       latArray.push(eventLat);
       lonArray.push(eventLon);
@@ -150,7 +150,7 @@ $(document).ready(function () {
       var distance = $("<h2>");
       var description = $("<p class='twitter-preview'>");
       var linkToAddress = $("<a class='map-link__temp'>");
-     // var imageBlock = $("<img>").attr("src", image);
+      // var imageBlock = $("<img>").attr("src", image);
 
       if (eventVenue !== null) {
         businessName.html(eventVenue);
@@ -181,12 +181,12 @@ $(document).ready(function () {
       $(".info-block").append("<div class='divider'>");
 
       var contentString = '<div class="infoContent">' +
-                            '<h1 class="firstHeading">'+ eventVenue +'</h1>' +
-                            '<div class="bodyContent">' +
-                              '<p class="twitter-preview info">'+ eventDescription +'</p>' +
-                              '<p><a class="map-link__temp info" data-mapURL="'+ iframeHref +'">Directions</a></p>' +
-                            '</div>' +
-                          '</div>';
+        '<h1 class="firstHeading">' + eventVenue + '</h1>' +
+        '<div class="bodyContent">' +
+        '<p class="twitter-preview info">' + eventDescription + '</p>' +
+        '<p><a class="map-link__temp info" data-mapURL="' + iframeHref + '">Directions</a></p>' +
+        '</div>' +
+        '</div>';
 
       var littleObject = {
         coords: {
@@ -289,6 +289,24 @@ $(document).ready(function () {
 
     codeAddress(zip);
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function getLatLngByZipcode(zip) {
+      var geocoder = new google.maps.Geocoder();
+      var address = zip;
+      geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          var latitude = results[0].geometry.location.lat();
+          var longitude = results[0].geometry.location.lng();
+          alert("Latitude: " + latitude + "\nLongitude: " + longitude);
+          alert('parse lat: ' + latArray[0] + 'parse lon: ' + lonArray[0])
+          alert(google.maps.geometry.spherical.computeDistanceBetween(
+            new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(parseFloat(latArray[0]), parseFloat(lonArray[0]))));
+        }
+      });
+    };
+
+    getLatLngByZipcode(zip);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Styles a map in night mode.
     map = new google.maps.Map(document.getElementById('map'), {
@@ -377,6 +395,10 @@ $(document).ready(function () {
         }
       ]
     });
+
+
+
+
 
     for (var i = 0; i < markers.length; i++) {
       addMarker(markers[i]);
