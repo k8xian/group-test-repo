@@ -131,15 +131,10 @@
     <!--Local Google Maps-->
     <!-- Resolving scope errors with callback function that needs to be declared below -->
     <script>
-          var userDataInput = false;
-          function mapRender() {
-            if (userDataInput === true) {
-            console.log("user data input is true");
-            initMap();
+          function initMap() {
             };
-         };
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&callback=mapRender" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&callback=initMap" async defer></script>
 
 
 </body>
