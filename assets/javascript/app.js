@@ -140,7 +140,7 @@ $(document).ready(function () {
       var eventLat = response.events.event[i].latitude;
       var eventLon = response.events.event[i].longitude;
       var eventURL = response.events.event[i].url;
-      var image = response.events.event[i].image.small.url;
+     // var image = response.events.event[i].image.small.url;
 
       latArray.push(eventLat);
       lonArray.push(eventLon);
@@ -150,7 +150,7 @@ $(document).ready(function () {
       var distance = $("<h2>");
       var description = $("<p class='twitter-preview'>");
       var linkToAddress = $("<a class='map-link__temp'>");
-      var imageBlock = $("<img>").attr("src", image);
+     // var imageBlock = $("<img>").attr("src", image);
 
       if (eventVenue !== null) {
         businessName.html(eventVenue);
