@@ -3,7 +3,7 @@ $(document).ready(function () {
 
   //enables dropdown of radius in index.html
   $('select').formSelect();
-
+  /*************************************** variables ***************************/
   var zip;
   var radius;
   var localZip;
@@ -22,13 +22,19 @@ $(document).ready(function () {
 
   var errorMsg = $("#input-error__message");
 
+
+
+
   userInput.show();
   mainDisplay.hide();
   mapDirections.hide();
   errorMsg.hide();
 
-  //saves zipcode & radius values as local storage
-  $(document).on('click', '.submit-btn', function () {
+  localStorage.setItem('zipcode', "");
+  localStorage.setItem('radius', "");
+
+  /*************************************** saves user input as localstorage ***************************/
+  $(document.body).on('click', '.submit-btn', function (event) {
     event.preventDefault();
     zip = $('#zipcode').val().trim()
     console.log(zip);
@@ -57,11 +63,125 @@ $(document).ready(function () {
       initMap();
       console.log('Zipcode: ' + zip)
       console.log('Radius: ' + radius);
+      /*************************************** ajax variables *****************************/
 
+      localZip = localStorage.getItem("zipcode");
+      console.log("The locally stored zip is: " + localZip);
+      localRadius = localStorage.getItem("radius");
+      console.log("The locally stored zip is: " + localRadius);
+
+      // temporary data since eventful doesn't populate a ton of results based on zip and radius
+      // var tempArea = "chicago";
+      // var tempRadius = "15";
+
+
+      //event
+      var eventfulKey = "TQGmk2sjCkvfxS3r";
+      var eventfulURL = "https://api.eventful.com/json/events/search?app_key="
+        + eventfulKey
+        + "&location="
+        + localZip
+        + "&ga_search=happy%20hour&ga_type=events"
+        + "&within&within="
+        + localRadius
+        + "&units=miles"
+      //        + "&date=Today";
+      console.log(eventfulURL);
+      /*************************************************************************************/
+
+      /*************************************** ajax function here***************************/
+
+      $.ajax({
+        url: eventfulURL,
+        dataType: 'jsonp',
+        method: "GET",
+      }).then(function (response) {
+
+        var resultLength = parseInt(response.total_items);
+        console.log(response);
+        console.log("the result length is = " + resultLength);
+
+        for (var i = 0; i < resultLength; i++) {
+
+          console.log(response.events.event[i].venue_name);
+          console.log(response.events.event[i].venue_address);
+          console.log(response.events.event[i].description);
+          console.log("event latitude " + response.events.event[i].latitude);
+          console.log("event longitude " + response.events.event[i].longitude);
+
+          var eventVenue = response.events.event[i].venue_name;
+          var eventAddress = response.events.event[i].venue_address;
+          var eventDescription = response.events.event[i].description;
+          var eventLat = response.events.event[i].latitude;
+          var eventLon = response.events.event[i].longitude;
+          var eventURL = response.events.event[i].url;
+          // var image = response.events.event[i].image.small.url;
+
+          latArray.push(eventLat);
+          lonArray.push(eventLon);
+
+          var sectionBlock = $("<div class='section'>");
+          var businessName = $("<h1>");
+          var distance = $("<h2>");
+          var description = $("<p class='twitter-preview'>");
+          var linkToAddress = $("<a class='map-link__temp'>");
+          // var imageBlock = $("<img>").attr("src", image);
+
+          if (eventVenue !== null) {
+            businessName.html(eventVenue);
+          } else {
+            businessName.html("unamed location")
+          }
+
+          if (eventDescription !== null) {
+            description.html(eventDescription);
+          } else if (eventURL !== null) {
+            description.html("<a href='" + eventURL + "' target='_blank'>no description available: link to event</a>");
+          } else {
+            description.text("Oops... no info available");
+          }
+
+          distance.text("0.4 mi");
+
+          var iframeHref = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&origin=" + localZip + "&destination=" + eventVenue;
+
+          if (eventAddress !== null) {
+            // linkToAddress.attr("href", "http://maps.google.com/?q=" + eventAddress).attr("target", "_blank").text("Link to Map");
+            linkToAddress.attr("data-mapURL", iframeHref).attr("target", "_blank").text("Directions")
+
+          }
+
+          sectionBlock.append(businessName, distance, description, linkToAddress);
+          $(".info-block").append(sectionBlock);
+          $(".info-block").append("<div class='divider'>");
+
+          var contentString = '<div class="infoContent">' +
+            '<h1 class="firstHeading">' + eventVenue + '</h1>' +
+            '<div class="bodyContent">' +
+            '<p class="twitter-preview info">' + eventDescription + '</p>' +
+            '<p><a class="map-link__temp info" data-mapURL="' + iframeHref + '">Directions</a></p>' +
+            '</div>' +
+            '</div>';
+
+          var littleObject = {
+            coords: {
+              lat: parseFloat(latArray[i]),
+              lng: parseFloat(lonArray[i])
+            },
+            iconImage: 'assets/images/map-icon.png',
+            content: contentString,
+          }
+          markers.push(littleObject);
+        }
+      });
+      /*********************** ajax function ends here *********************/
+      userDataInput = true;
     }
   });
+  /*********************** on click event ends here  *********************/
 
-  //saves filter input when typed
+
+  /*********************** filter input capture for icebox feature  *********************/
   $(document).on('input', '#filter-input', function () {
     filter = $('#filter-input').val().trim();
   });
@@ -77,141 +197,7 @@ $(document).ready(function () {
     filters.push(filter);
     localStorage.setItem('filters', filters);
   });
-
-
-
-
-
-
-  /*************************************************************************************/
-  localZip = localStorage.getItem("zipcode");
-  console.log("The locally stored zip is: " + localZip);
-  localRadius = localStorage.getItem("radius");
-  console.log("The locally stored zip is: " + localRadius);
-
-  // temporary data since eventful doesn't populate a ton of results based on zip and radius
-  // var tempArea = "chicago";
-  // var tempRadius = "15";
-
-
-  //event
-  var eventfulKey = "TQGmk2sjCkvfxS3r";
-  var eventfulURL = "https://api.eventful.com/json/events/search?app_key="
-    + eventfulKey
-    + "&location="
-    + localZip
-    + "&ga_search=happy%20hour&ga_type=events"
-    + "&within&within="
-    + localRadius
-    + "&units=miles"
-  //        + "&date=Today";
-  console.log(eventfulURL);
-
-  //problem is ajax call is happening too soon
-  //wrap ajax call in a function
-
-  //if localstorage values == null, something = false
-  //if localstorage values == true, something true
-
-  //if something is true, call ajax function
-  // function eventfulSearch() {
-
-  $.ajax({
-    url: eventfulURL,
-    dataType: 'jsonp',
-    method: "GET"
-  }).then(function (response) {
-
-    var resultLength = parseInt(response.total_items);
-    console.log(response);
-    console.log("the result length is = " + resultLength);
-
-    for (var i = 0; i < resultLength; i++) {
-
-      console.log(response.events.event[i].venue_name);
-      console.log(response.events.event[i].venue_address);
-      console.log(response.events.event[i].description);
-      console.log("event latitude " + response.events.event[i].latitude);
-      console.log("event longitude " + response.events.event[i].longitude);
-
-      var eventVenue = response.events.event[i].venue_name;
-      var eventAddress = response.events.event[i].venue_address;
-      var eventDescription = response.events.event[i].description;
-      var eventLat = response.events.event[i].latitude;
-      var eventLon = response.events.event[i].longitude;
-      var eventURL = response.events.event[i].url;
-     // var image = response.events.event[i].image.small.url;
-
-      latArray.push(eventLat);
-      lonArray.push(eventLon);
-
-      var sectionBlock = $("<div class='section'>");
-      var businessName = $("<h1>");
-      var distance = $("<h2>");
-      var description = $("<p class='twitter-preview'>");
-      var linkToAddress = $("<a class='map-link__temp'>");
-     // var imageBlock = $("<img>").attr("src", image);
-
-      if (eventVenue !== null) {
-        businessName.html(eventVenue);
-      } else {
-        businessName.html("unamed location")
-      }
-
-      if (eventDescription !== null) {
-        description.html(eventDescription);
-      } else if (eventURL !== null) {
-        description.html("<a href='" + eventURL + "' target='_blank'>no description available: link to event</a>");
-      } else {
-        description.text("Oops... no info available");
-      }
-
-      distance.text("0.4 mi");
-
-      var iframeHref = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&origin=" + localZip + "&destination=" + eventVenue;
-
-      if (eventAddress !== null) {
-        // linkToAddress.attr("href", "http://maps.google.com/?q=" + eventAddress).attr("target", "_blank").text("Link to Map");
-        linkToAddress.attr("data-mapURL", iframeHref).attr("target", "_blank").text("Directions")
-
-      }
-
-      sectionBlock.append(businessName, distance, description, linkToAddress);
-      $(".info-block").append(sectionBlock);
-      $(".info-block").append("<div class='divider'>");
-
-      var contentString = '<div class="infoContent">' +
-                            '<h1 class="firstHeading">'+ eventVenue +'</h1>' +
-                            '<div class="bodyContent">' +
-                              '<p class="twitter-preview info">'+ eventDescription +'</p>' +
-                              '<p><a class="map-link__temp info" data-mapURL="'+ iframeHref +'">Directions</a></p>' +
-                            '</div>' +
-                          '</div>';
-
-      var littleObject = {
-        coords: {
-          lat: parseFloat(latArray[i]),
-          lng: parseFloat(lonArray[i])
-        },
-        iconImage: 'assets/images/map-icon.png',
-        content: contentString,
-      }
-      markers.push(littleObject);
-    }
-  });
-
-  // };
-
-
-
-  ///logic for fixing local storage issue
-  //script callback function will be set to a thing containing the map init function
-  // there is a boolean that will begin on false upon page load, when the submit button is clicked, if there is a five digit zip entered, it will be changed to true
-  //there is also a boolean at the end of the ajax function that changes a second boolean to true?
-  //the callback function will say, if ___ is true && ___ is true, initMap. 
-
-
-
+  /*********************** end filter input   *********************/
 
 
 
@@ -252,6 +238,8 @@ $(document).ready(function () {
   var geocoder; //To use later
   var map; //Your map
   //map styling
+
+  /*********************** init map begins   *********************/
   function initMap() {
 
     ///map stuff
@@ -265,26 +253,26 @@ $(document).ready(function () {
 
 
     infoWindow = new google.maps.InfoWindow;
-
+  /*********************** code address function *********************/
     function codeAddress(zipCode) {
       geocoder.geocode({ 'address': zipCode }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           //Got result, center the map and put it out there
           map.setCenter(results[0].geometry.location);
-          var marker = new google.maps.Marker({
-            map: map,
-            position: zip.results[0].geometry.location
-          });
+          // var marker = new google.maps.Marker({
+          //   map: map,
+          //   position: zip.results[0].geometry.location
+          // });
         } else {
           alert("Geocode was not successful for the following reason: " + status);
         }
       });
     }
-
+  /*********************** code address function *********************/
     codeAddress(zip);
 
 
-    // Styles a map in night mode.
+    /*********************** map styling *********************/
     map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 12,
@@ -372,19 +360,13 @@ $(document).ready(function () {
       ]
     });
 
-    for (var i = 0; i < markers.length; i++) {
-      addMarker(markers[i]);
-    }
-    //for loop for generating markers array into markers on the map- this isn't working yet.
-    //loops through markers array
-    for (var i = 0; i < markers.length; i++) {
-      addMarker(markers[i]);
-    }
+      /*********************** rendering markers *********************/
+
+
 
     function addMarker(props) {
       // Adds a marker
       var marker = new google.maps.Marker({
-
         position: props.coords,
         map: map,
       });
@@ -397,7 +379,6 @@ $(document).ready(function () {
       //checks content of info window
       if (props.content) {
         var infoWindow = new google.maps.InfoWindow({
-          //info window text
           content: props.content
         })
         //click on marker for infowindow to display
@@ -406,8 +387,13 @@ $(document).ready(function () {
         })
       }
     }
-
+  
   };
+
+  for (var i = 0; i < markers.length; i++) {
+    addMarker(markers[i]);
+  }
+
 
 
 
@@ -421,7 +407,6 @@ $(document).ready(function () {
   //render map iframe with the this.attr(data-map of the icon clicked on)
   //figure out styling
 
-
   $(document).on('click', '.map-link__temp', function () {
     var mapDirectionsURL = $(this).attr("data-mapURL");
     console.log(mapDirectionsURL);
@@ -429,9 +414,10 @@ $(document).ready(function () {
     mapDirections.show();
     mapDirections.attr("src", mapDirectionsURL);
 
+});
+
+
 
   });
+  /*********************** init map ends   *********************/
 
-
-
-});

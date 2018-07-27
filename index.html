@@ -16,11 +16,21 @@
     <!--Style CSS-->
     <link rel='stylesheet' href='./assets/css/style.css'>
     <!--Fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">    
     <!--Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
+
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+        crossorigin="anonymous"></script>
+    <!---AJAX-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+    <!--Local Javascript Path-->
+    <script src='./assets/javascript/app.js'></script>
 </head>
 
 <body>
@@ -118,18 +128,20 @@
     <!--End of Main Container-->
 
 
-    <!--jquery-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
-        crossorigin="anonymous"></script>
-    <!---AJAX-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-    <!--Local Javascript Path-->
-    <script src='./assets/javascript/app.js'></script>
     <!--Local Google Maps-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&callback=initMap" async
-        defer></script>
+    <!-- Resolving scope errors with callback function that needs to be declared below -->
+    <script>
+          var userDataInput = false;
+          function mapRender() {
+            if (userDataInput === true) {
+            console.log("user data input is true");
+            initMap();
+            };
+         };
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&callback=mapRender" async defer></script>
+
+
 </body>
 
 
