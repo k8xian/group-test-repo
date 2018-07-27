@@ -16,6 +16,9 @@
 * eventful API returns events that contain the term "happy hour" that meet that query
 * Data populates in a scrollable list on the next view with a link to a map containing directions
 * Venues are populated on a map with custom markers
+* Special info blocks render on-click showing the description of the venue with a link to the map
+* Design is Mobile-First with a dark scheme for on-the-go use in the evening
+* The embedded map customized to match the aesthetic of the rest of the web-app
 
 # Challenges
 * Populating markers in embedded Google map by passing in JSON data
@@ -24,14 +27,14 @@
 * Issues relating to timing of  user input and asynchronous Google map rendering
 * Adjusting scroll bars rendering on PC views to maintain functionality & design scheme
 
-
 # Upcoming Features
 * Data populated from Twitter API, using Node.js
 * Filters by price, food, type of beverage, and custom values
     * This page is partially developed, but the eventful API doesn't contain enough data to make this useful
 * Users will be able to verify a happy hour
 * Businesses will be able to directly add a happy hour
+* A detailed screen for each venue with a preview of related posts
 
-# Known Bugs
-* You may have to input your zip and radius twice for the app to work becuase of compcliations related to the Maps API
-    * We had a fix for this, but it broke the rendering of the markers, we are currently working on this
+# Known Bugs (and sometimes fixed bugs)
+* Note that the API calls take a few seconds, and the map will re-render with the markers
+* Maps sometimes throws an alert with a geocode error- not sure why. 
