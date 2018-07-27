@@ -142,12 +142,12 @@ $(document).ready(function () {
       var eventURL = response.events.event[i].url;
       // var image = response.events.event[i].image.small.url;
 
-      latArray.push(eventLat);
-      lonArray.push(eventLon);
+      parseFloat(latArray.push(eventLat));
+      parseFloat(lonArray.push(eventLon));
 
       var sectionBlock = $("<div class='section'>");
       var businessName = $("<h1>");
-      var distance = $("<h2>");
+      var distance = $("<h2>").addClass('location').attr('data-key', i);
       var description = $("<p class='twitter-preview'>");
       var linkToAddress = $("<a class='map-link__temp'>");
       // var imageBlock = $("<img>").attr("src", image);
@@ -289,24 +289,37 @@ $(document).ready(function () {
 
     codeAddress(zip);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    function getLatLngByZipcode(zip) {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function getLatLngByZipcode() {
       var geocoder = new google.maps.Geocoder();
       var address = zip;
+
       geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           var latitude = results[0].geometry.location.lat();
           var longitude = results[0].geometry.location.lng();
-          alert("Latitude: " + latitude + "\nLongitude: " + longitude);
-          alert('parse lat: ' + latArray[0] + 'parse lon: ' + lonArray[0])
-          alert(google.maps.geometry.spherical.computeDistanceBetween(
-            new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(parseFloat(latArray[0]), parseFloat(lonArray[0]))));
+          // alert("Latitude: " + latitude + "\nLongitude: " + longitude);
+          // alert('parse lat: ' + latArray[0] + '\nparse lon: ' + lonArray[0])
+          // alert(parseFloat(google.maps.geometry.spherical.computeDistanceBetween(
+          //   new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(parseFloat(latArray[0]), parseFloat(lonArray[0])))));
+
+          //rounds to two decimal places
+          var rounded = Math.round(parseInt(google.maps.geometry.spherical.computeDistanceBetween(
+            new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(parseFloat(latArray[0]), parseFloat(lonArray[0])))));
+
+          //converts from meters to kilometers
+          var distanceBetween = (rounded / 1000).toFixed(2);
+
+          //targets attr to update DOM
+          $(`[data-key]`).each(function () {
+            $(this).text(distanceBetween + ' km')
+          })
         }
       });
     };
 
-    getLatLngByZipcode(zip);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    getLatLngByZipcode()
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Styles a map in night mode.
     map = new google.maps.Map(document.getElementById('map'), {
