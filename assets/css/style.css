@@ -167,6 +167,9 @@ h3 {
     margin-top: 33%;
 }
 
+
+
+
 html {
     height: 100%;
 }
@@ -290,6 +293,7 @@ h1.firstHeading {
 
 .infoContent {
     padding: 20px;
+    max-width: 250px;
 }
 
 
@@ -333,4 +337,16 @@ input::-webkit-inner-spin-button {
     margin: 10px auto -10px;
     letter-spacing: 2px;
     font-variant-ligatures: none;
+}
+
+@media screen and (min-width: 600px) {
+    .card-row {
+        margin-top: 20%;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .card-row {
+        margin-top: 10%;
+    }
 }
