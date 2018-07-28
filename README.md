@@ -48,5 +48,5 @@
 ### Known Bugs
 * Note that the API calls take a few seconds, and the map will re-render with the markers
 * There will be a geocode error and the map won't center after a while, this is because there is a limit on the number of calls allowed becuase the Geocode API costs money
-* Distance calculation is close, but not quite working, and will wait to submit to the repo the full solution until after the demonstration when it is tested. 
+* Distance calculation is close, but not quite working, and will wait to submit to the repo the full solution until after the demonstration and when it is tested. 
 
