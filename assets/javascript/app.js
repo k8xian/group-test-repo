@@ -172,6 +172,7 @@ $(document).ready(function () {
       }
       markers.push(littleObject);
       setTimeout(initMap, 3000);
+        
     }
   });
   /*********************** ajax function ends here *********************/
@@ -351,6 +352,7 @@ $(document).ready(function () {
 
         position: props.coords,
         map: map,
+          
       });
       //checks for custom icon
       if (props.iconImage) {
@@ -368,6 +370,9 @@ $(document).ready(function () {
         marker.addListener('click', function () {
           infoWindow.open(map, marker);
         })
+        //sets up a bounce animation for all markers    
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(){ marker.setAnimation(null); }, 1000);
       }
     }
 
@@ -392,6 +397,16 @@ $(document).ready(function () {
     mapDirections.attr("src", mapDirectionsURL);
 
   });
+    
+  $(document).on('click','#reload', function() {
+    window.location.reload(true);
+    //    userInput.show();
+    //    mainDisplay.hide();
+    //resets form input after a submit
+    //    $('form').get(0).reset();
+    //localStorage.clear();
+    
+});
 
 
 });
