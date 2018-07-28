@@ -150,7 +150,7 @@ $(document).ready(function () {
 
       }
 
-      sectionBlock.append(businessName, distance, description, linkToAddress);
+      sectionBlock.append(businessName, description, linkToAddress);
       $(".info-block").append(sectionBlock);
       $(".info-block").append("<div class='divider'>");
 
