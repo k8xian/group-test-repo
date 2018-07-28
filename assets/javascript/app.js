@@ -51,9 +51,6 @@ $(document).ready(function () {
     //  console.log("The locally stored zip is: " + localZip);
       localRadius = localStorage.getItem("radius");
     //  console.log("The locally stored zip is: " + localRadius);
-      //      if (localZip !== null && localRadius !== null ){
-      //        eventfulSearch();
-      //      }
 
       userInput.hide();
       mainDisplay.show();
@@ -116,12 +113,12 @@ $(document).ready(function () {
       var eventURL = response.events.event[i].url;
       // var image = response.events.event[i].image.small.url;
 
-      latArray.push(eventLat);
-      lonArray.push(eventLon);
+      parseFloat(latArray.push(eventLat));
+      parseFloat(lonArray.push(eventLon));
 
       var sectionBlock = $("<div class='section'>");
       var businessName = $("<h1>");
-      var distance = $("<h2>");
+      var distance = $("<h2>").addClass('location');
       var description = $("<p class='twitter-preview'>");
       var linkToAddress = $("<a class='map-link__temp'>");
       // var imageBlock = $("<img>").attr("src", image);
@@ -140,7 +137,7 @@ $(document).ready(function () {
         description.text("Oops... no info available");
       }
 
-      distance.text("0.4 mi");
+
 
       var iframeHref = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyDpkrdyEIkh_gMJCpyFW_idp4JV-QK8ZoE&origin=" + localZip + "&destination=" + eventVenue;
 
@@ -150,9 +147,38 @@ $(document).ready(function () {
 
       }
 
+
+      var geocoder = new google.maps.Geocoder();
+      var address = localZip;
+      var distanceBetween;
+      var distanceMiles;
+
+      geocoder.geocode({ 'address': address }, function (results, status) {
+          var latitude = eventLat;
+          var longitude = eventLon;
+          //rounds to two decimal places
+          var rounded = Math.round(parseInt(google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(parseFloat(latArray[0]), parseFloat(lonArray[0])))));
+          console.log(rounded);
+          //converts from meters to kilometers
+          distanceBetween = (rounded / 1000).toFixed(2);
+          distanceMiles = (distanceBetween / .62).toFixed(2);
+
+          console.log(distanceMiles + " mi");
+    });
+
+        if (distanceMiles !== undefined) {
+          distance.text(distanceMiles + " mi");
+         } else {
+          distance.text("0 mi");
+        };
+      
+      //this is all of the list data appending to the DOM
+
       sectionBlock.append(businessName, distance, description, linkToAddress);
       $(".info-block").append(sectionBlock);
       $(".info-block").append("<div class='divider'>");
+
+      // this is where all the marker + info block content lives
 
       var contentString = '<div class="infoContent">' +
         '<h1 class="firstHeading">' + eventVenue + '</h1>' +
@@ -241,13 +267,41 @@ $(document).ready(function () {
           //   position: zip.results[0].geometry.location
           // });
         } else {
-          alert("Geocode was not successful for the following reason: " + status);
+          console.log("Geocode was not successful for the following reason: " + status);
         }
       });
     }
     /*********************** code address function *********************/
     codeAddress(zip);
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // function getLatLngByZipcode() {
+    //   var geocoder = new google.maps.Geocoder();
+    //   var address = localZip;
+
+    //   geocoder.geocode({ 'address': address }, function (results, status) {
+    //     if (status == google.maps.GeocoderStatus.OK) {
+    //       var latitude = results[0].geometry.location.lat();
+    //       var longitude = results[0].geometry.location.lng();
+    //        console.log("Latitude: " + latitude + " Longitude: " + longitude);
+    //         console.log('parse lat: ' + latArray[0] + ' parse lon: ' + lonArray[0])
+    //        console.log(google.maps.geometry.spherical.computeDistanceBetween( new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)), new google.maps.LatLng(parseFloat(latArray[0]), parseFloat(lonArray[0]))));
+
+    //       //rounds to two decimal places
+    //       var rounded = Math.round(parseInt(google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(parseFloat(latArray[0]), parseFloat(lonArray[0])))));
+    //       console.log(rounded);
+
+    //       //converts from meters to kilometers
+    //       var distanceBetween = (rounded / 1000).toFixed(2);
+    //       console.log(distanceBetween + " km");
+    //       //targets attr to update DOM
+
+    //     }
+    //   });
+    // };
+
+    // getLatLngByZipcode()
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /*********************** map styling *********************/
     map = new google.maps.Map(document.getElementById('map'), {
