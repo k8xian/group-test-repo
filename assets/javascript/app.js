@@ -51,9 +51,6 @@ $(document).ready(function () {
     //  console.log("The locally stored zip is: " + localZip);
       localRadius = localStorage.getItem("radius");
     //  console.log("The locally stored zip is: " + localRadius);
-      //      if (localZip !== null && localRadius !== null ){
-      //        eventfulSearch();
-      //      }
 
       userInput.hide();
       mainDisplay.show();
@@ -155,7 +152,7 @@ $(document).ready(function () {
       var address = localZip;
       var distanceBetween;
       var distanceMiles;
-      function getLatLngByZipcode() {
+
       geocoder.geocode({ 'address': address }, function (results, status) {
           var latitude = eventLat;
           var longitude = eventLon;
@@ -167,12 +164,13 @@ $(document).ready(function () {
           distanceMiles = (distanceBetween / .62).toFixed(2);
 
           console.log(distanceMiles + " mi");
-          return distanceMiles;
     });
-  };
 
-  getLatLngByZipcode();
+        if (distanceMiles !== undefined) {
           distance.text(distanceMiles + " mi");
+         } else {
+          distance.text("0 mi");
+        };
       
       //this is all of the list data appending to the DOM
 
